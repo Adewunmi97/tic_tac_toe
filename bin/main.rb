@@ -1,2 +1,10 @@
 #!/usr/bin/env ruby
-puts 'Hello World'
+
+# display welcome message
+puts 'Tic Tac Toe!'
+# get player names
+puts 'Please Enter Your Name '
+name = gets.chomp
+
+#
+# get player move
