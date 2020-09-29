@@ -4,7 +4,6 @@ def welcome_message
   puts '__' * 50
   puts ''
   puts '                      WELCOME TO THE WONDER GAME OF TIC TIC TOE'
-  puts '                             Lets get ready to rumble!!!'
   puts '__' * 50
   puts ''
   puts 'Players take turns to select from 9 positions on the board below'
