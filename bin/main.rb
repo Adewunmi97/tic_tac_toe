@@ -12,7 +12,7 @@ def welcome_message
   puts ''
 end
 
-board = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+board = %w[1 2 3 4 5 6 7 8 9]
 def display_board(board)
   puts " #{board[0]} | #{board[1]} | #{board[2]} "
   puts '-----------'
@@ -32,56 +32,54 @@ def players
   players
 end
 
-
 welcome_message
 display_board(board)
 puts ''
- puts ''
- player_arr = players
+puts ''
+player_arr = players
 puts "#{player_arr[0]} gets X and #{player_arr[1]} gets O"
 puts 'All the best'
 puts '__' * 70
 display_board(board)
 
-def get_user_input
-  puts "Enter Choice between 1 and 9"
+def user_input
+  puts 'Enter Choice between 1 and 9'
   choice = gets.chomp.strip.to_i
-  choice    
+  choice
 end
 
 def valid_input?(choice)
   if choice.is_a?(String) || !choice.between?(1, 9)
-    return false
+    false
   else
     true
   end
 end
 
 def free_cell?(board, choice)
-  return false if board[choice -1] == 'X' || board[choice -1] == 'O'
-  true
-end 
+  return false if board[choice - 1] == 'X' || board[choice - 1] == 'O'
 
-def move(board, choice=0)  
+  true
+end
+
+def move(board, choice = 0)
   while !valid_input?(choice) || !free_cell?(board, choice)
-    choice = get_user_input 
-    if !free_cell?(board, choice)
-      puts 'Position taken'
-    end
+    choice = user_input
+    puts 'Position taken' unless free_cell?(board, choice)
   end
-  return choice
+  choice
 end
 puts "Choice is #{move(board)}"
 
-def play(player_arr, board, get_user_input)
+def play(player_arr, board, user_input)
   game_acc_moves = []
-  while game_acc_moves.length <= 8 do
+  while game_acc_moves.length <= 8
     player_arr.each_with_index do |player, index|
       puts ''
       puts "It is #{player}'s turn"
-      choice = move(board, get_user_input)
+      choice = move(board, user_input)
       game_acc_moves << choice
-      if index == 0
+      if index.zero?
         board[choice - 1] = 'X'
         print board
       elsif index == 1
@@ -93,8 +91,8 @@ def play(player_arr, board, get_user_input)
   end
 end
 
-play(player_arr, board, get_user_input)
+play(player_arr, board, user_input)
 
-
-def check_winner(player_arr, board, move )
+def check_winner(_player_arr, _board, _move)
+  puts 'Winner'
 end
