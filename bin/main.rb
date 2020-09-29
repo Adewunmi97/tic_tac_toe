@@ -1,10 +1,12 @@
 #!/usr/bin/env ruby
 
 def welcome_message
-  puts '__' * 70
-  puts '                 WELCOME TO THE WONDER GAME OF TIC TIC TOE'
-  puts '                       Lets get ready to rumble!!!'
-  puts '__' * 70
+  puts '__' * 50
+  puts ''
+  puts '                      WELCOME TO THE WONDER GAME OF TIC TIC TOE'
+  puts '                             Lets get ready to rumble!!!'
+  puts '__' * 50
+  puts ''
   puts 'Players take turns to select from 9 positions on the board below'
   puts 'First to make a horizontal or vertical line of their selection wins'
   puts ''
@@ -18,6 +20,7 @@ def display_board(board)
   puts '-----------'
   puts " #{board[6]} | #{board[7]} | #{board[8]} "
 end
+
 def players
   players = []
   2.times do |i|
@@ -29,30 +32,54 @@ def players
   players
 end
 
+
 welcome_message
 display_board(board)
 puts ''
-puts ''
-player_arr = players
+ puts ''
+ player_arr = players
 puts "#{player_arr[0]} gets X and #{player_arr[1]} gets O"
 puts 'All the best'
 puts '__' * 70
 display_board(board)
 
-def player_move(player_arr, board)
+def get_user_input
+  puts "Enter Choice between 1 and 9"
+  choice = gets.chomp.strip.to_i
+  choice    
+end
+
+def valid_input?(choice)
+  if choice.is_a?(String) || !choice.between?(1, 9)
+    return false
+  else
+    true
+  end
+end
+
+def free_cell?(board, choice)
+  return false if board[choice -1] == 'X' || board[choice -1] == 'O'
+  true
+end 
+
+def move(board, choice=0)  
+  while !valid_input?(choice) || !free_cell?(board, choice)
+    choice = get_user_input 
+    if !free_cell?(board, choice)
+      puts 'Position taken'
+    end
+  end
+  return choice
+end
+puts "Choice is #{move(board)}"
+
+def play(player_arr, board, get_user_input)
   game_acc_moves = []
   while game_acc_moves.length <= 8 do
     player_arr.each_with_index do |player, index|
       puts ''
       puts "It is #{player}'s turn"
-      choice = 0
-      until choice.between?(1, 9) && !game_acc_moves.include?(choice)
-        puts 'Enter choice between 1 and 9'
-        choice = gets.chomp.strip.to_i      
-        if game_acc_moves.include?(choice)
-          puts 'Position Already taken'
-        end
-      end
+      choice = move(board, get_user_input)
       game_acc_moves << choice
       if index == 0
         board[choice - 1] = 'X'
@@ -64,8 +91,10 @@ def player_move(player_arr, board)
       display_board(board)
     end
   end
-  game_acc_moves
 end
-player_move(player_arr, board)
 
-# def check_winner(board)
+play(player_arr, board, get_user_input)
+
+
+def check_winner(player_arr, board, move )
+end
