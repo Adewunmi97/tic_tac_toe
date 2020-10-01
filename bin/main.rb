@@ -55,23 +55,31 @@ def user_input
   choice = gets.chomp.strip.to_i
   choice
 end
-user_input
+choice = user_input
 
-puts HelperMethods.valid_input?
-# def free_cell?(board, choice)
-#   return fal if board[choice - 1] == 'X' || board[choice - 1] == 'O'
+def move(board, choice = 0)
+  puts 'Position taken' unless Game.new.free_cell?(board, choice)
+  while !Game.new.valid_input?(choice) || !Game.new.free_cell?(board, choice)
+    
+    return choice if Game.new.valid_input?(choice) && Game.new.free_cell?(board, choice)
+  end
+  choice
+end
+puts "Choice is #{move(board, choice)}"
 
-#   true
-# end
-
-# def move(board, choice = 0)
-#   while !valid_input?(choice) || !free_cell?(board, choice)
-#     choice = user_input
-#     puts 'Position taken' unless free_cell?(board, choice)
+# def play(player_arr, board)
+#   count = 0
+#   while count < 9
+#     player_arr.each_with_index do |player, index|
+#       puts "It is #{player}'s turn"
+#       choice = user_input
+#       move(board, choice)   
+#     end
+#     return "Its a draw " if count == 9
+#     count += 1
 #   end
-#   choice
 # end
-# puts "Choice is #{move(board)}"
+# play(players_arr, board)
 
 # def play(player_arr, board, user_input)
 #   game_acc_moves = []

@@ -8,6 +8,6 @@ class Board
   #   board[choice] = char
   # end
 end
-b = Board.new
-p b.board
+# b = Board.new
+# p b.board
 
