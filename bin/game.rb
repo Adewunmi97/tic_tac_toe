@@ -7,10 +7,7 @@ class Game
     board = Board.new
   end
   def valid_input?(choice)
-    if choice.is_a?(String) || !choice.between?(1, 9)
-      false
-    else
-      true
-    end
+    return false if !choice.is_a?(Integer) || !choice.between?(1, 9)
+    true
   end
 end

@@ -57,7 +57,7 @@ def user_input
 end
 user_input
 
-puts HelperMethods.valid_input?(2)
+puts HelperMethods.valid_input?
 # def free_cell?(board, choice)
 #   return fal if board[choice - 1] == 'X' || board[choice - 1] == 'O'
 
