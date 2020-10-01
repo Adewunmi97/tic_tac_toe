@@ -15,9 +15,13 @@ end
 
 
 $game = Game.new
+
+puts "kbsfkjbf #{$game}"
 $template = $game.board
 $player1 = $game.player1
 $player2 = $game.player2
+
+puts "DSDASFF #{$template}"
 
 def display_board(board)
   puts " #{board[0]} | #{board[1]} | #{board[2]} "
@@ -87,27 +91,29 @@ def move(board, choice)
   end
   choice
 end
+
+# move(board, choice)
 # puts "Choice is #{move($template, user_input)}"
 
-# def play(player_arr, board, user_input)
-#   game_acc_moves = []
-#   while game_acc_moves.length <= 8
-#     player_arr.each_with_index do |player, index|
-#       puts ''
-#       puts "It is #{player}'s turn"
-#       choice = move(board, user_input)
-#       game_acc_moves << choice
-#       if index.zero?
-#         board[choice - 1] = 'X'
-#         print board
-#       elsif index == 1
-#         board[choice - 1] = 'O'
-#       end
-#       puts "Acc game moves #{game_acc_moves} \n"
-#       display_board(board)
-#     end
-#   end
-# end
+def play(player_arr, board, user_input)
+  game_acc_moves = []
+  while game_acc_moves.length <= 8
+    player_arr.each_with_index do |player, index|
+      puts ''
+      puts "It is #{player}'s turn"
+      choice = move(board, user_input)
+      game_acc_moves << choice
+      if index.zero?
+        board[choice - 1] = 'X'
+        print board
+      elsif index == 1
+        board[choice - 1] = 'O'
+      end
+      puts "Acc game moves #{game_acc_moves} \n"
+      display_board(board)
+    end
+  end
+end
 
 # play(player_arr, $template.board, user_input)
 

@@ -1,5 +1,5 @@
 require_relative './board.rb'
-class Game
+class Board
     attr_reader :board
     attr_accessor :player1, :player2
     def initialize()
@@ -8,3 +8,4 @@ class Game
         @player2 = nil
     end
 end
+
