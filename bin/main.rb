@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+require_relative '../lib/game.rb'
+require_relative '../lib/player.rb'
 
 def welcome_message
   puts '__' * 50
@@ -11,7 +13,12 @@ def welcome_message
   puts ''
 end
 
-board = %w[1 2 3 4 5 6 7 8 9]
+
+$game = Game.new
+$template = $game.board
+$player1 = $game.player1
+$player2 = $game.player2
+
 def display_board(board)
   puts " #{board[0]} | #{board[1]} | #{board[2]} "
   puts '-----------'
@@ -24,51 +31,63 @@ def players
   players = []
   2.times do |i|
     puts "Player #{i + 1}, Please Enter Your Name: "
-    current = gets.chomp.strip
-    puts "Welcome #{current} : All the best"
-    players << current
+    name = gets.chomp.strip
+    puts "Player #{i + 1}, Choose Tag: "
+    tag = gets.chomp.strip
+    if i == 0
+      $player1 = Player.new(name, tag)
+    else
+      $player2 = Player.new(name, tag)
+    end
+    puts $game.player1
+    puts $game.player2
+    puts "Welcome #{name} : All the best"
+    players << name
   end
   players
 end
 
 welcome_message
-display_board(board)
+display_board($template.board)
 puts ''
 puts ''
 player_arr = players
 puts "#{player_arr[0]} gets X and #{player_arr[1]} gets O"
 puts 'All the best'
 puts '__' * 70
-display_board(board)
+display_board($template.board)
 
 def user_input
   puts 'Enter Choice between 1 and 9'
   choice = gets.chomp.strip.to_i
-  choice
 end
 
 def valid_input?(choice)
-  if choice.is_a?(String) || !choice.between?(1, 9)
-    false
-  else
-    true
-  end
-end
-
-def free_cell?(board, choice)
-  return false if board[choice - 1] == 'X' || board[choice - 1] == 'O'
-
-  true
-end
-
-def move(board, choice = 0)
-  while !valid_input?(choice) || !free_cell?(board, choice)
+  while choice.is_a?(String) || !choice.between?(1, 9)
     choice = user_input
-    puts 'Position taken' unless free_cell?(board, choice)
+  end
+  # if choice.is_a?(String) || !choice.between?(1, 9)
+  #   false
+  # else
+  #   true
+  # end
+  choice
+end
+
+# def free_cell?(board, choice)
+#   return false if board[choice - 1] == 'X' || board[choice - 1] == 'O'
+
+#   true
+# end
+
+def move(board, choice)
+  while !valid_input?(choice) || !board.free_cell?(choice)
+    choice = user_input
+    puts 'Position taken' unless board.free_cell?(choice)
   end
   choice
 end
-puts "Choice is #{move(board)}"
+puts "Choice is #{move($template, user_input)}"
 
 def play(player_arr, board, user_input)
   game_acc_moves = []
@@ -90,7 +109,7 @@ def play(player_arr, board, user_input)
   end
 end
 
-play(player_arr, board, user_input)
+play(player_arr, $template.board, user_input)
 
 def check_winner(_player_arr, _board, _move)
   puts 'Winner'
