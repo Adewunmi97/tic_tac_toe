@@ -1,18 +1,10 @@
-require_relative './player'
-require_relative './board'
-
+require_relative './board.rb'
 class Game
-  # def initialize
-  #   @players = []
-  #   board = Board.new
-  # end
-  def valid_input?(choice)
-    return false if !choice.is_a?(Integer) || !choice.between?(1, 9)
-    true
-  end
-  def free_cell?(board, choice)
-    return false if board[choice - 1] == 'X' || board[choice - 1] == 'O'
-    true
-  end  
+    attr_reader :board
+    attr_accessor :player1, :player2
+    def initialize()
+        @board = Board.new
+        @player1 = nil
+        @player2 = nil
+    end
 end
-

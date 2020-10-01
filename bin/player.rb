@@ -1,9 +1,7 @@
 class Player
-  attr_accessor :name
-  def initialize(name='Guest', char='X')
-    @name = name
-    @char = char
-  end
-
+    attr_reader :name, :tag
+    def initialize(name, tag)
+        @name = name
+        @tag = tag
+    end
 end
-

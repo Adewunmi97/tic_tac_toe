@@ -26,15 +26,9 @@ def display_board(board)
   puts '-----------'
   puts " #{board[6]} | #{board[7]} | #{board[8]} "
 end
-welcome_message
-display_board(board)
-
-# name = 'Gilber'
-# player1 = Player.new(name)
-# puts player1.name
 
 def players
-  players_arr = []
+  players = []
   2.times do |i|
     puts "Player #{i + 1}, Please Enter Your Name: "
     name = gets.chomp.strip
@@ -50,23 +44,22 @@ def players
     puts "Welcome #{name} : All the best"
     players << name
   end
-  players_arr
+  players
 end
-players_arr = players
-print players_arr
 
 welcome_message
 display_board($template.board)
 puts ''
 puts ''
-puts "#{players_arr[0]} gets X and #{players_arr[1]} gets O"
+player_arr = players
+puts "#{player_arr[0]} gets X and #{player_arr[1]} gets O"
 puts 'All the best'
 puts '__' * 70
 display_board($template.board)
 
 def user_input
   puts 'Enter Choice between 1 and 9'
-  choice = gets.chomp.strip.to_i
+  return gets.chomp.strip.to_i
 end
 
 def valid_input?(choice)
@@ -81,11 +74,11 @@ def valid_input?(choice)
   choice
 end
 
-# def free_cell?(board, choice)
-#   return false if board[choice - 1] == 'X' || board[choice - 1] == 'O'
+def free_cell?(board, choice)
+  return false if board[choice - 1] == 'X' || board[choice - 1] == 'O'
 
-#   true
-# end
+  true
+end
 
 def move(board, choice)
   while !valid_input?(choice) || !board.free_cell?(choice)
@@ -94,25 +87,29 @@ def move(board, choice)
   end
   choice
 end
-puts "Choice is #{move($template, user_input)}"
+# puts "Choice is #{move($template, user_input)}"
 
-# def play(player_arr, board)
-#   count = 0
-#   while count < 9
+# def play(player_arr, board, user_input)
+#   game_acc_moves = []
+#   while game_acc_moves.length <= 8
 #     player_arr.each_with_index do |player, index|
+#       puts ''
 #       puts "It is #{player}'s turn"
-#       choice = user_input
-#       move(board, choice)   
+#       choice = move(board, user_input)
+#       game_acc_moves << choice
+#       if index.zero?
+#         board[choice - 1] = 'X'
+#         print board
+#       elsif index == 1
+#         board[choice - 1] = 'O'
+#       end
+#       puts "Acc game moves #{game_acc_moves} \n"
+#       display_board(board)
 #     end
-#     return "Its a draw " if count == 9
-#     count += 1
 #   end
 # end
-# play(players_arr, board)
 
-play(player_arr, $template.board, user_input)
-
-# play(player_arr, board, user_input)
+# play(player_arr, $template.board, user_input)
 
 # def check_winner(_player_arr, _board, _move)
 #   puts 'Winner'
