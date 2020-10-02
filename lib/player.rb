@@ -1,7 +1,7 @@
 class Player
-    attr_reader :name, :tag
-    def initialize(name, tag)
+    attr_accessor :name, :tag, :score
+    def initialize(name)
         @name = name
-        @tag = tag
+        @score = []
     end
 end
