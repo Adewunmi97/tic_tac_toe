@@ -23,12 +23,19 @@ def display_board(board)
 end
 
 
-winning_combination = [[1, 2, 3], [4, 5, 6], [7, 9, 9], [1, 4, 6], [2, 5, 7], [3, 6, 9], [1, 5, 9], [3, 5, 6]]
+# winning_combination = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [1, 4, 6], [2, 5, 7], [3, 6, 9], [1, 5, 9], [3, 5, 6]]
 winning_combination = [
-  [board[0], board[1], board[2]]
+  [board[0], board[1], board[2]],
+  [board[3], board[4], board[5]],
+  [board[6], board[7], board[8]],
+  [board[0], board[3], board[5]],
+  [board[1], board[4], board[6]],
+  [board[2], board[5], board[8]],
+  [board[0], board[4], board[8]],
+  [board[2], board[4], board[5]]
 ]
 
-# #gets player names 
+# #gets player names
 
 def player_names
   players = []
@@ -38,7 +45,7 @@ def player_names
       puts "player #{i + 1} please Enter Your Name"
       name = gets.chomp.upcase
       break if name.length > 0
-      puts "Invalid Entry" 
+      puts "Invalid Entry"
     end
     puts "Welcome #{name} :"
     players << name
@@ -84,10 +91,10 @@ end
 # p score
 def winner?(player, winning_combination)
   winning_combination.each do |win_arr|
-    # if win_arr.all? {|i| i == player.tag} 
-      # puts "#{player} wins "
-    p win_arr
-    # end
+    if win_arr.all? {|i| i == player.tag}
+      puts "#{player} wins "
+    # p win_arr
+    end
   end
 end
 
@@ -150,7 +157,7 @@ p scores
 #     #   puts "Player #{i + 1}, Choose Your Symbol X or O: "
 #     #   tag = gets.chomp.strip.upcase
 #     #   break if tag == 'X' || tag == 'O'
-#     # end  
+#     # end
 #     # if i == 0
 #     #   $player1 = Player.new(name, tag, [])
 #     # else
@@ -222,9 +229,9 @@ p scores
 #         score << choice
 #         board[choice - 1] = $player1.tag
 #         p "sc = #{score}"
-#         display_board(board) 
+#         display_board(board)
 #         check_winner(winning_combination, board)
-#         p board     
+#         p board
 #       else
 #         puts "It is #{$player2.name}'s turn "
 #         choice = move(board, user_input)
@@ -233,7 +240,7 @@ p scores
 #         p "sc = #{score}"
 #         board[choice] = $player2.tag
 #         p board
-#         display_board(board)      
+#         display_board(board)
 #       end
 #     end
 #     game_acc_moves
@@ -342,7 +349,7 @@ p scores
 #       else
 #         break if name.is_a?(String)
 #       end
-#     end   
+#     end
 #     name = gets.chomp.strip
 #     puts "Player #{i + 1}, Choose Tag: "
 #     tag = gets.chomp.strip
