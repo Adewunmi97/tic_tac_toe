@@ -22,15 +22,10 @@ def display_board(board)
   puts " #{board[6]} | #{board[7]} | #{board[8]} "
 end
 
+
+winning_combination = [[1, 2, 3], [4, 5, 6], [7, 9, 9], [1, 4, 6], [2, 5, 7], [3, 6, 9], [1, 5, 9], [3, 5, 6]]
 winning_combination = [
-  [board[0],board[1],board[2]],
-  [board[3],board[4],board[5]],
-  [board[6],board[7],board[8]],
-  [board[0],board[3],board[6]],
-  [board[0],board[4],board[8]],
-  [board[1],board[4],board[7]],
-  [board[2],board[5],board[8]],
-  [board[2],board[4],board[6]]
+  [board[0], board[1], board[2]]
 ]
 
 # #gets player names 
@@ -53,14 +48,14 @@ end
 display_board(board)
 players = player_names
 
-player1 = Player.new(players[0])
-player2 = Player.new(players[1])
+player1 = Player.new(players[0], 'X')
+player2 = Player.new(players[1], 'O')
 puts "#{player1.name} vs #{player2.name}"
 puts 'Let the games begin'
 
 def user_input
   puts 'Enter Choice between 1 and 9'
-  choice = gets.chomp.strip.to_i
+  choice = gets.chomp.strip.to_i - 1
   choice
 end
 
@@ -75,28 +70,56 @@ def free_cell?(board, choice)
 end
 
 def move(player, board)
-  score = []
+  # player.score = []
   choice = user_input
-  while !valid_input?(choice) || !free_cell?(board, choice)
-    puts 'Position taken'
-  end
+  # while !valid_input?(choice) || !free_cell?(board, choice)
+  #   puts 'Position taken'
+  # end
   board[choice] = player.tag
-  score << choice
+  # player.score << choice
+  # print "Score = #{player.score}"
 end
 
-score = move(player1, board)
-p score
+# score = move(player1, board)
+# p score
+def winner?(player, winning_combination)
+  winning_combination.each do |win_arr|
+    # if win_arr.all? {|i| i == player.tag} 
+      # puts "#{player} wins "
+    p win_arr
+    # end
+  end
+end
 
-def play(player1, player2)
+def play(player1, player2, board, winning_combination)
   count = 0
   while count < 9
     2.times do |i|
+      if i == 0
+        # move(player1, board)
+        player1.score << move(player1, board)
+        print "#{player1.score} \n"
+        display_board(board)
+        winner?(player1, winning_combination)
+        player1.score
+      else
+        # move(player2, board)
+        player2.score << move(player2, board)
+        print "#{player2.score} \n"
+        display_board(board)
+        winner?(player2, winning_combination)
+        player2.score
+      end
     end
     count += 1
   end
+  [per1.scorelay, player2.score]
 end
+scores = play(player1, player2, board, winning_combination)
+p scores
 
-# def move(player, board)
+
+# def move(ayer, board)
 #   score = []
 #   puts "#{player} its your turn"
 #   choice = valid_input?(user_input).t
