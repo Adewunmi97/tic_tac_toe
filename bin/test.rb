@@ -1,17 +1,8 @@
-board = [1, 'X', 3, 4, 5, 'O', 7, 8, 9]
-def user_input
-  puts 'Enter Choice between 1 and 9'
-  choice = gets.chomp.strip.to_i
-  choice
+WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 5], [1, 4, 6], [2, 5, 8], [0, 4, 8], [2, 4, 5]].freeze
+def winner?(score)
+  for win in WINNING_COMBINATION
+    return true if win == score
+  end
 end
-choice = user_input
-def valid_input?(choice)
-  return false if !choice.is_a?(Integer) || !choice.between?(1, 9)
-  true
-end
-puts valid_input?(choice)
-def free_cell?(board, choice)
-  return true if board[choice - 1] == 'X' || board[choice - 1] == 'O'
-  false
-end
-puts free_cell?
+
+p winner?([0, 1, 2])
