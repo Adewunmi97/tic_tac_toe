@@ -40,7 +40,7 @@ def display_board(board)
 end
 
 
-WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 5], [1, 4, 6], [2, 5, 8], [0, 4, 8], [2, 4, 5]].freeze
+winning_combination = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 5], [1, 4, 6], [2, 5, 8], [0, 4, 8], [2, 4, 5]]
 
 # #gets player names
 
@@ -93,9 +93,12 @@ def valid?(board, input)
   !position_taken?(board, input) && int_between_1_and_9?(input)
 end
 
-def winner?(score)
-  for win in WINNING_COMBINATION
-    return win == score
+def winner?(winning_combination, score)
+  count = 0
+  while count < 9
+    puts "winning = #{winning_combination[count]}"
+    return winning_combination[count] == score
+    count += 1
   end
 end
 
@@ -107,9 +110,7 @@ def move(player, board)
     puts "board input #{board[input]}"
     puts "tag = #{player.tag}"
     display_board(board)
-    player.score << input
-    p player.score
-    return winner?(player.score)
+    return player.score << input
   elsif position_taken?(board, input)
     puts "#{board[input]} in position taken"
     puts 'Position taken'
@@ -119,13 +120,21 @@ def move(player, board)
     move(player, board)
   end
 end
+puts "Player 1 = #{move(player1, board)}"
+puts "Player 2 = #{move(player2, board)}"
 
-def play(players, board)
+
+def play(winning_combination, players, board)
   count = 0
   while count < 9
     2.times do |i|
       move(players[i], board)
-    end    
+      puts "#{players[i].name} WINS" if winner?(winning_combination, players[i].score)
+      return "#{players[i]} WINS " if winner?(winning_combination, players[i].score)
+    end 
+    puts 'Its a draw' if count == 9 
+    return 'Its a draw ' if count == 9
+    count += 1   
   end
 end
-print play(players, board)
+play(winning_combination, players, board)
