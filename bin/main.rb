@@ -75,54 +75,57 @@ puts '_'*50
 puts ''
 
 
-def user_input
+def player_input
   space
-  puts 'Enter Choice between 1 and 9'
-  choice = gets.chomp.strip.to_i - 1
- choice
+  puts 'Enter Choice from 1- 9'
+  gets.chomp.strip.to_i - 1
 end
 
 def int_between_1_and_9?(input)
-  input.is_a?(Integer) && input.between?(1, 9)
+  input.is_a?(Integer) && input.between?(0, 8)
 end
 
 def position_taken?(board, input)
-  board[input] == 'X' || board[input] == 'O' ? true : false
+  board[input] == 'X' || board[input] == 'O'
+end
+
+def valid?(board, input)
+  !position_taken?(board, input) && int_between_1_and_9?(input)
 end
 
 def winner?(score)
   for win in WINNING_COMBINATION
-    return true if win == score
+    return win == score
   end
 end
 
-def move(players, board)
+def move(player, board)
+  puts "#{player.name} It is  your turn"
+  input = player_input
+  if valid?(board, input)
+    board[input] = player.tag
+    puts "board input #{board[input]}"
+    puts "tag = #{player.tag}"
+    display_board(board)
+    player.score << input
+    p player.score
+    return winner?(player.score)
+  elsif position_taken?(board, input)
+    puts "#{board[input]} in position taken"
+    puts 'Position taken'
+    move(player, board)
+  else 
+    puts 'Invalid move'
+    move(player, board)
+  end
+end
+
+def play(players, board)
   count = 0
-  display_board(board)
   while count < 9
     2.times do |i|
-      puts "#{players[i].name} it is your turn"
-      choice = user_input
-      if board[choice] == ('X' || 'O')
-        puts 'Position taken'
-        choice = user_input
-      elsif !int_between_1_and_9?(choice)
-        puts 'Invalid Entry'
-        choice = user_input
-      end
-      board[choice] = players[i].tag
-      players[i].score << choice
-      display_board(board)
-      p players[i].score
-      WINNING_COMBINATION.each do |win|
-        # p "Inside #{players[i].score}"
-        # p win
-        puts "#{players[i].name} WINS!!" if players[i].score == win
-        return if players[i].score == win
-      end
-    end
+      move(players[i], board)
+    end    
   end
 end
-
-move(players, board)
-
+print play(players, board)
