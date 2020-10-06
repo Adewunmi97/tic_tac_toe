@@ -1,14 +1,41 @@
-def winner?(winning, score)
-  # count = 0
-  # while count < 9
-  #   return item == score
-  # end
-  for win in winning
-    return 'Winner' if win == score
+
+
+WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 5], [1, 4, 6], [2, 5, 8], [0, 4, 8], [2, 4, 5]].freeze
+board = ['X', 'O' , 'X', 'X', 'X', 'X', 9]
+
+def winner?(board)
+  for win in WINNING_COMBINATION
+    if board & win == win
+      puts 'Winner Aqui'
+    end
   end
 end
 
-winning = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 5], [1, 4, 6], [2, 5, 8], [0, 4, 8], [2, 4, 5]]
+puts winner?(board)
+# def test_set_arr(board)
+#   arr = []
+#   board.each_with_index do |item, inx|
+#     if item == 'X'
+#       arr << inx
+#       #  p arr 
+#     end
+#   end
+#   return arr
+# end
+
+# print test_set(board)
 
 
-p winner?(winning, [6, 7, 8])
+
+# for win in WINNING_COMBINATION
+#   # puts "Win and test #{win & test_s}"
+# end
+# test_data = test_set(board)
+# def winner?(test_set)
+#   for win in WINNING_COMBINATION do
+#     if win == test_data & win
+#       puts "test the fun = #{test_data & win}"
+#       puts "Winnner"
+#     end
+#   end
+# end
