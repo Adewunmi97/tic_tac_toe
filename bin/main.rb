@@ -1,6 +1,21 @@
 #!/usr/bin/env ruby
 require_relative '../lib/game.rb'
 require_relative '../lib/player.rb'
+<<<<<<< HEAD
+=======
+
+
+class Player
+  attr_accessor :name, :score, :tag
+  def initialize(name, tag)
+    @name = name
+    @tag = tag
+    @score = []
+
+  end
+end
+
+>>>>>>> aff7ade4cc263def9aac84ea3fd560aaa083c077
 def space
   puts ''
 end
@@ -21,6 +36,7 @@ end
 
 game = Game.new(player1, player2)
 WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 5], [1, 4, 6], [2, 5, 8], [0, 4, 8], [2, 4, 6]].freeze
+
 # #gets player names
 
 def player_names
@@ -74,7 +90,7 @@ def restart(game, player, board)
       break
     end
   end
-end
+
 
 def move(player, board)
   puts 'Enter move between 1 - 9'
@@ -82,6 +98,7 @@ def move(player, board)
   input = game.player_input
   if game.valid?(board, input)
     board[input] = player.tag
+
     display_board(game.board)
     puts "#{player.name} WON!!" if winner?(player, board)
     restart(player, board) if winner?(player, board)
@@ -92,14 +109,17 @@ def move(player, board)
   else
     puts 'Invalid Entry - Try Again'
     move(game, player, board)
+
   end
   return player.score
 end
+
 def play(game, players, board)
   count = 0
   while count < 9
     2.times do |i|
       players[i].score = move(players[i], board)
+
       # if winner?(players[i].score)
       #   puts "DBG Winner Score #{winner?(players[i].score)}"
       #   puts "#{players[i].name} HAS WON!!"
@@ -107,9 +127,10 @@ def play(game, players, board)
       # else
       #   # puts "SCore = #{players[i].score}"
       # end
+
     end
     count += 1
   end
 end
-play(game, players, board)
 
+play(game, players, board)
