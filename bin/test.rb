@@ -1,15 +1,26 @@
 
 
 WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 5], [1, 4, 6], [2, 5, 8], [0, 4, 8], [2, 4, 5]].freeze
-board = ['X', 'O' , 'X', 'X', 'X', 'X', 9]
+board = ['X', 'O' , 'O', 'X', 'X', 'X']
 
 def winner?(board)
-  for win in WINNING_COMBINATION
-    p board & win
+  tot = []
+  WINNING_COMBINATION.each do |comb|
+    score = board.each_index.select{|i| board[i] == 'X'}
+    tot = score & comb
+    return true if tot.length == 3
+    
   end
 end
 
-puts winner?([0, 1, 2])
+p winner?(board)
+# def winner?(board)
+#   WINNING_COMBINATION.each do |item|
+#     item.all? {|i| board[i] == 'X' }
+#   end
+# end
+
+# puts winner?([0, 1, 2])
 # def test_set_arr(board)
 #   arr = []
 #   board.each_with_index do |item, inx|

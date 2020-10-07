@@ -2,33 +2,23 @@
 require_relative '../lib/game.rb'
 require_relative '../lib/player.rb'
 
-
-class Player
-  attr_accessor :name, :score, :tag
-  def initialize(name, tag)
-    @name = name
-    @tag = tag
-    @score = []
-    
-  end
-end
-
 def space
-  puts '' 
+  puts ''
 end
+
 def line
   puts '_'
 end
 
 def welcome_message
-  puts '__' * 50
-  puts ''
+  line * 50
+  space
   puts '                      WELCOME TO THE WONDER GAME OF TIC TIC TOE'
-  puts '__' * 50
-  puts ''
+  line * 50
+  space
   puts 'Players take turns to select from 9 positions on the board below'
   puts 'First to make a horizontal or vertical line of their selection wins'
-  puts ''
+  space
 end
 
 board = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -42,21 +32,21 @@ def display_board(board)
 end
 
 
-WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 5], [1, 4, 6], [2, 5, 8], [0, 4, 8], [2, 4, 5]]
+WINNING_COMBINATION = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 6], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
 
 # #gets player names
 
 def player_names
   players = []
   2.times do |i|
-    name =''
+    name = ''
     loop do
       space
       puts "player #{i + 1} please Enter Your Name"
       space
       name = gets.chomp.upcase
-      break if name.length > 0
-      puts "Invalid Entry"
+      break if name.length > 0 
+      puts 'Invalid Entry'
     end
     puts "Welcome #{name} :"
     players << name
@@ -92,6 +82,37 @@ def valid?(board, input)
   !position_taken?(board, input) && int_between_1_and_9?(input)
 end
 
+def winner?(player, board)
+  tot = []
+  WINNING_COMBINATION.each do |comb|
+    score = board.each_index.select{|i| board[i] == player.tag}
+    tot = score & comb
+    
+  end
+  return true if tot.length == 3
+end
+
+def restart(player, board)
+
+  space
+  space
+  space
+  puts 'Do You Want To Play Again?'
+  puts 'Enter Y or N'
+  loop do
+    option = gets.chomp.upcase
+    if option == 'Y'
+      board[0] = 1; board[1] = 2
+      board[2] = 3; board[3] = 4
+      board[4] = 5; board[5] = 6
+      board[6] = 7; board[7] = 8; board[8] = 9
+      move(player, board)
+    else
+      return 
+    end
+  end
+end
+
 def move(player, board)
   puts 'Enter move between 1 - 9'
   puts "#{player.name} It is  your turn"
@@ -99,7 +120,9 @@ def move(player, board)
   if valid?(board, input)
     board[input] = player.tag
     display_board(board)
-    player.score << input
+    puts "#{player.name} WON!!" if winner?(player, board)
+    restart(player, board) if winner?(player, board)
+    # player.score << input
   elsif position_taken?(board, input)
     puts "Position #{board[input]} taken - Try Again"
     move(player, board)
@@ -110,32 +133,25 @@ def move(player, board)
   return player.score
 end
 
-def winner?(score)
-  for combination in WINNING_COMBINATION
-    puts "DBG SCore #{score.inspect}"
-    result = score & combination
-    leng = result.length
-    puts "DBG result = #{score.inspect}"
-    puts "legth #{leng}"
-  end
-  puts "DBG LENG = #{leng.inspect}"
-  return leng == 1
-
-end
 
 def play(players, board)
   count = 0
   while count < 9
     2.times do |i|
       players[i].score = move(players[i], board)
-      if winner?(players[i].score)
-        puts "DBG Winner Score #{winner?(players[i].score.inspect)}"
-        puts "#{players[i].name} HAS WON!!"
-        return "#{players[i].name} HAS WON!!"
-      else
-        # puts "SCore = #{players[i].score}"
-      end
+      # if winner?(players[i].score)
+      #   puts "DBG Winner Score #{winner?(players[i].score)}"
+      #   puts "#{players[i].name} HAS WON!!"
+      #   return "#{players[i].name} HAS WON!!"
+      # else
+      #   # puts "SCore = #{players[i].score}"
+      # end
     end
+    if count == 9
+      puts "Its a draw"
+      restart(player, board)
+    end
+    puts count 
     count += 1
   end
 end
