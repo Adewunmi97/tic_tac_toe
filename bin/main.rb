@@ -99,7 +99,7 @@ def move(player, board)
   if valid?(board, input)
     board[input] = player.tag
     display_board(board)
-    return player.score << input
+    player.score << input
   elsif position_taken?(board, input)
     puts "Position #{board[input]} taken - Try Again"
     move(player, board)
@@ -107,13 +107,20 @@ def move(player, board)
     puts 'Invalid Entry - Try Again'
     move(player, board)
   end
+  return player.score
 end
 
 def winner?(score)
-  for win in WINNING_COMBINATION
-    result = score & win
+  for combination in WINNING_COMBINATION
+    puts "DBG SCore #{score.inspect}"
+    result = score & combination
+    leng = result.length
+    puts "DBG result = #{score.inspect}"
+    puts "legth #{leng}"
   end
-  result.length == 3
+  puts "DBG LENG = #{leng.inspect}"
+  return leng == 1
+
 end
 
 def play(players, board)
@@ -122,10 +129,11 @@ def play(players, board)
     2.times do |i|
       players[i].score = move(players[i], board)
       if winner?(players[i].score)
+        puts "DBG Winner Score #{winner?(players[i].score.inspect)}"
         puts "#{players[i].name} HAS WON!!"
-        break
+        return "#{players[i].name} HAS WON!!"
       else
-        puts "SCore = #{players[i].score}"
+        # puts "SCore = #{players[i].score}"
       end
     end
     count += 1

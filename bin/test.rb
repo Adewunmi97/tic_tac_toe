@@ -5,13 +5,11 @@ board = ['X', 'O' , 'X', 'X', 'X', 'X', 9]
 
 def winner?(board)
   for win in WINNING_COMBINATION
-    if board & win == win
-      puts 'Winner Aqui'
-    end
+    p board & win
   end
 end
 
-puts winner?(board)
+puts winner?([0, 1, 2])
 # def test_set_arr(board)
 #   arr = []
 #   board.each_with_index do |item, inx|
