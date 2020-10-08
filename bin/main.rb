@@ -98,7 +98,15 @@ def restart(game, board)
   end
 end
 
-def move(game, players, board)
+def play(game, board)
+  welcome_message
+  display_board(board)
+  players = player_names
+  player1 = Player.new(players[0], 'X')
+  player2 = Player.new(players[1], 'O')
+  players = [player1, player2]
+  welcome_players(players)
+  display_board(board)
   9.times do |x|
     2.times do |i|
       input = player_input
@@ -109,26 +117,14 @@ def move(game, players, board)
         restart(game, board) if game.winner?(players[i], board)
       elsif game.position_taken?(board, input)
         puts "Position #{board[input]} taken - Try Again"
-        move(game, players, board)
+        play(game, board)
       else
         puts 'Invalid Entry - Try Again'
-        move(game, players, board)
+        play(game, board)
       end
     end
     restart(game, board) if x == 9
   end
-end
-
-def play(game, board)
-  welcome_message
-  display_board(board)
-  players = player_names
-  player1 = Player.new(players[0], 'X')
-  player2 = Player.new(players[1], 'O')
-  players = [player1, player2]
-  welcome_players(players)
-  display_board(board)
-  move(game, players, board)
 end
 
 play(game, game.board)
