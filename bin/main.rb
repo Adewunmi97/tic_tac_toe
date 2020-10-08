@@ -102,41 +102,20 @@ def move(game, player, board)
   input = player_input
   if game.valid?(board, input)
     board[input] = player.tag
+    display_board(board)
+    game.winning_combination.each do |com|
+      score = board.each_index.select { |i| board[i] == player.tag }
+      puts "#{player.name} WINS" if (com - score).empty?
+      restart(game, board) if (com - score).empty?
+    end
   elsif game.position_taken?(board, input)
     puts "Position #{board[input]} taken - Try Again"
-    move(game, player, board)
+    move(game, players, board)
   else
     puts 'Invalid Entry - Try Again'
     move(game, players, board)
   end
-  return board
 end
-
-
-
-# def move(game, players, board)
-#   9.times do
-#     2.times do |i|
-#       input = player_input
-#       if game.valid?(board, input)
-#         board[input] = players[i].tag
-#         display_board(board)
-#         if game.winner?(players[i], board)
-#           p board
-#           "#{players[i].name} WON!!"
-#           # restart(game, board)
-#         end
-#       elsif game.position_taken?(board, input)
-#         puts "Position #{board[input]} taken - Try Again"
-#         move(game, players, board)
-#       else
-#         puts 'Invalid Entry - Try Again'
-#         move(game, players, board)
-#       end
-#     end
-#     # restart(game, board) if x == 9
-#   end
-# end
 
 def play(game, board)
   welcome_message
@@ -146,15 +125,10 @@ def play(game, board)
   player2 = Player.new(players[1], 'O')
   players = [player1, player2]
   welcome_players(players)
-  
+  display_board(board)
   9.times do
-    2.times do |i|
-      board = move(game, players[i], board)
-      display_board(board)
-      if game.winner?(players[i], board)
-        puts 'Winner'
-      end
-    end
+    move(game, player1, board)
+    move(game, player2, board)
   end
 end
 

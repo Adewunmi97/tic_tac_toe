@@ -18,17 +18,4 @@ class Game
   def valid?(board, input)
     !position_taken?(board, input) && int_between_1_and_9?(input)
   end
-
-  def winner?(player, board)
-    # tot = []
-    @winning_combination.each do |combination|
-      score = board.each_index.select { |i| board[i] == player.tag }
-      # score.all? { |y| combination.include?(y)}
-      tot = score & combination
-      # p tot.length
-      return true if tot.length == 3
-    end
-    # puts "DBG #{tot.length}"
-    
-  end
 end
