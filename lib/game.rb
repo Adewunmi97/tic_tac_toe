@@ -20,11 +20,15 @@ class Game
   end
 
   def winner?(player, board)
-    tot = []
+    # tot = []
     @winning_combination.each do |combination|
       score = board.each_index.select { |i| board[i] == player.tag }
+      # score.all? { |y| combination.include?(y)}
       tot = score & combination
+      # p tot.length
+      return true if tot.length == 3
     end
-    return true if tot.length == 3
+    # puts "DBG #{tot.length}"
+    
   end
 end

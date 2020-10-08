@@ -98,6 +98,46 @@ def restart(game, board)
   end
 end
 
+def move(game, player, board)
+  input = player_input
+  if game.valid?(board, input)
+    board[input] = player.tag
+  elsif game.position_taken?(board, input)
+    puts "Position #{board[input]} taken - Try Again"
+    move(game, player, board)
+  else
+    puts 'Invalid Entry - Try Again'
+    move(game, players, board)
+  end
+  return board
+end
+
+
+
+# def move(game, players, board)
+#   9.times do
+#     2.times do |i|
+#       input = player_input
+#       if game.valid?(board, input)
+#         board[input] = players[i].tag
+#         display_board(board)
+#         if game.winner?(players[i], board)
+#           p board
+#           "#{players[i].name} WON!!"
+#           # restart(game, board)
+#         end
+#       elsif game.position_taken?(board, input)
+#         puts "Position #{board[input]} taken - Try Again"
+#         move(game, players, board)
+#       else
+#         puts 'Invalid Entry - Try Again'
+#         move(game, players, board)
+#       end
+#     end
+#     # restart(game, board) if x == 9
+#   end
+# end
+
 def play(game, board)
   welcome_message
   display_board(board)
@@ -106,24 +146,15 @@ def play(game, board)
   player2 = Player.new(players[1], 'O')
   players = [player1, player2]
   welcome_players(players)
-  display_board(board)
-  9.times do |x|
+  
+  9.times do
     2.times do |i|
-      input = player_input
-      if game.valid?(board, input)
-        board[input] = players[i].tag
-        display_board(board)
-        puts "#{players[i].name} WON!!" if game.winner?(players[i], board)
-        restart(game, board) if game.winner?(players[i], board)
-      elsif game.position_taken?(board, input)
-        puts "Position #{board[input]} taken - Try Again"
-        play(game, board)
-      else
-        puts 'Invalid Entry - Try Again'
-        play(game, board)
+      board = move(game, players[i], board)
+      display_board(board)
+      if game.winner?(players[i], board)
+        puts 'Winner'
       end
     end
-    restart(game, board) if x == 9
   end
 end
 
