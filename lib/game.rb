@@ -7,11 +7,6 @@ class Game
     @player2 = nil
   end
 
-  def player_input
-    puts 'Select Spot 1 - 9'
-    gets.chomp.to_i - 1
-  end
-
   def int_between_1_and_9?(input)
     input.is_a?(Integer) && input.between?(0, 8)
   end

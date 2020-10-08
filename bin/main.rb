@@ -22,6 +22,14 @@ def welcome_message
   space
 end
 
+def player_input
+  space
+  space
+  puts 'Please Select Spot 1 - 9'
+  space
+  gets.chomp.to_i - 1
+end
+
 def display_board(board)
   space
   puts " #{board[0]} | #{board[1]} | #{board[2]} "
@@ -51,15 +59,15 @@ def player_names
 end
 
 def welcome_players(players)
-  puts ''
+  space
   puts '_' * 50
-  puts ''
-  puts ''
+  space
+  space
   puts "                        #{players[0].name}  vs  #{players[1].name}"
   puts '                    Let the games begin'
   puts '                       Select from 1-9'
   puts '_' * 50
-  puts ''
+  space
 end
 
 def end_game
@@ -95,7 +103,7 @@ end
 def move(game, players, board)
   9.times do |x|
     2.times do |i|
-      input = game.player_input
+      input = player_input
       if game.valid?(board, input)
         board[input] = players[i].tag
         display_board(board)
