@@ -110,10 +110,10 @@ def move(game, player, board)
     end
   elsif game.position_taken?(board, input)
     puts "Position #{board[input]} taken - Try Again"
-    move(game, players, board)
+    move(game, player, board)
   else
     puts 'Invalid Entry - Try Again'
-    move(game, players, board)
+    move(game, player, board)
   end
 end
 
