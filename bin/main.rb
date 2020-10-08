@@ -5,17 +5,15 @@ require_relative '../lib/player.rb'
 
 game = Game.new
 
-p game.board
-
 def space
   puts ''
 end
 
 def welcome_message
-  puts '_' * 50
+  puts '_' * 80
   space
   puts '                      WELCOME TO THE WONDER GAME OF TIC TIC TOE'
-  puts '_' * 50
+  puts '_' * 80
   space
   puts 'Players take turns to select from 9 positions on the board below'
   puts 'First to make a horizontal or vertical line of their selection wins'
@@ -122,6 +120,7 @@ def move(game, players, board)
 end
 
 def play(game, board)
+  welcome_message
   display_board(board)
   players = player_names
   player1 = Player.new(players[0], 'X')
