@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 require_relative '../lib/game.rb'
 require_relative '../lib/player.rb'
-<<<<<<< HEAD
-=======
 
 
 class Player
@@ -15,7 +13,6 @@ class Player
   end
 end
 
->>>>>>> aff7ade4cc263def9aac84ea3fd560aaa083c077
 def space
   puts ''
 end
