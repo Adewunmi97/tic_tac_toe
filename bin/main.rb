@@ -92,8 +92,10 @@ def restart(game, board)
       board[7] = 8
       board[8] = 9
       play(game, board)
-    else
+    elsif option == 'N'
       end_game
+    else
+      restart(game, board)
     end
   end
 end
@@ -115,6 +117,7 @@ def move(game, player, board)
     puts 'Invalid Entry - Try Again'
     move(game, player, board)
   end
+  input
 end
 
 def play(game, board)
@@ -126,9 +129,16 @@ def play(game, board)
   players = [player1, player2]
   welcome_players(players)
   display_board(board)
-  9.times do
-    move(game, player1, board)
-    move(game, player2, board)
+  5.times do |x|
+    2.times do |i|
+      move(game, players[i], board)
+      # if full_board?(board)
+      puts x
+      if x == 4
+        puts 'Its a draw!!!'
+        restart(game, board)
+      end
+    end
   end
 end
 
