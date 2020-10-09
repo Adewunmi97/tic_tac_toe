@@ -16,10 +16,6 @@ class Game
     board[input] == 'X' || board[input] == 'O'
   end
 
-  def full_board?(board, input)
-    board.all? { position_taken?(board, input) }
-  end
-
   def valid?(board, input)
     !position_taken?(board, input) && int_between_1_and_9?(input)
   end
