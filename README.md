@@ -5,31 +5,23 @@ Build a tic-tac-toe game on the command line where two human players can play ag
 <img alt="Demonstration" src="tic_tac_toe.png"/>
 
 
-## Project specifications
-1. Create a script file to house your methods and run it in IRB to test them later.
-2. Add your new methods onto the existing Enumerable module.  Ruby makes this easy for you because any class or module can be added to without trouble ... just do something like:
+#### Game Instructions
+Tic-Tac-Toe is a very popular game, which consists in making a sequence of three symbols in either a row, column or diagonal in a 3x3 board.
 
-~~~ruby
-  module Enumerable
-    def my_each
-      # your code here
-    end
-  end
-~~~
+To play the game follow the game installation steps mention below this file. After you've done that, run the main file and follow these steps:
 
-3. Create `#my_each`, a method that is identical to `#each` but (obviously) does not use `#each`.  You'll need to remember the `yield` statement.  Make sure it returns the same thing as `#each` as well.
-4. Create `#my_each_with_index` in the same way.
-5. Create `#my_select` in the same way, though you may use `#my_each` in your definition (but not `#each`).
-6. Create `#my_all?` (continue as above)
-7. Create `#my_any?`
-8. Create `#my_none?`
-9. Create `#my_count`
-10. Create `#my_map`
-11. Create `#my_inject`
-12. Test your `#my_inject` by creating a method called `#multiply_els` which multiplies all the elements of the array together by using `#my_inject`, e.g. `multiply_els([2,4,5]) #=> 40`
-13. Modify your `#my_map` method to take a proc instead.
-14. Modify your `#my_map` method to take either a proc or a block. It won't be necessary to apply both a proc and a block in the same `#my_map` call since you could get the same effect by chaining together one `#my_map` call with the block and one with the proc. This approach is also clearer, since the user doesn't have to remember whether the proc or block will be run first. So if both a proc and a block are given, only execute the proc.
-      
+1. Enter the first player's name;
+2. Welcomes first player;
+3. Enter the second player's name;
+4. Welcomes the second player;
+5. The game will begin. The Tic-Tac-Toe board will be printed and it will show numbers from 1 to 9;
+6. To win this game one player must make a sequence of three tokens either on lines, columns or diagonals;
+7. Choose the position where you want to place your first token, it must be between 1 to 9;
+8. After that, this position will be taken and the second player will take this turn;
+9. The selected position can't be chosen twice else it displays position taken;
+10. The game will take turns until a player wins or no more positions are available on the board, in this case it will   be a draw!
+11. As soon as the game ends it ask players if they would like to play again, if yes it continues if no it stops.
+
 ## 🔨 Built in
 
 - Ruby
